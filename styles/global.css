@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: #F8F9FA;
+    --foreground: #2F3E46;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* --background: #1A1B26; */
+      --background: #F8F9FA;
+      --foreground: #2F3E46;
+    }
+  }
+  
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Add some cooking-themed utility classes */
+  @layer components {
+    .recipe-card {
+      @apply bg-white dark:bg-neutral-dark rounded-lg shadow-sm border border-primary/10 dark:border-primary/20 transition-all duration-300 hover:shadow-md;
+    }
+    
+    .cooking-button {
+      @apply bg-primary hover:bg-primary-dark text-white rounded-lg transition-all duration-300 transform hover:scale-102 active:scale-98;
+    }
+    
+    .accent-button {
+      @apply bg-secondary hover:bg-secondary-dark text-white rounded-lg transition-all duration-300;
+    }
+  }
+  
+  /* Hide scrollbar styles */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .perspective-3d {
+    perspective: 1000px;
+  }
+  
+  .transform-3d {
+    transform: rotateX(20deg) scale(1.05);
+    transform-origin: bottom;
+    background-position-y: center;
+  }
+  
+  @keyframes scroll-bg {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: -2000px;
+    }
+  }
+  
+  .animate-scroll-bg {
+    animation: scroll-bg 40s linear infinite;
+  }
+  
+  @layer utilities {
+    .text-shadow-outline-black {
+      text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    }
+  
+    .text-shadow-outline-bold {
+      text-shadow: -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black, 0px -3px 0 black, 0px 3px 0 black, -3px 0px 0 black, 3px 0px 0 black;
+    }
+  
+    .text-shadow-outline-extra-bold {
+      text-shadow: -12px -12px 0 black, 12px -12px 0 black, -12px 12px 0 black, 12px 12px 0 black;
+    }
+  }
+  
+  @layer utilities {
+    .animate-scroll-horizontal {
+      animation: scroll-horizontal-left-to-right 20s linear infinite;
+    }
+  
+    @keyframes scroll-horizontal-left-to-right {
+      from {
+        transform: translateX(-50%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
+  }
+  
+  @layer utilities {
+    .tilt-left-inward {
+      transform: perspective(1000px) rotateY(15deg);
+      transform-style: preserve-3d;
+    }
+  
+    .tilt-right-inward {
+      transform: perspective(1000px) rotateY(-15deg);
+      transform-style: preserve-3d;
+    }
+  }
+  
+  @layer utilities {
+    .touch-none {
+      touch-action: none;
+    }
+  }
+  
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .fileUploaderWrapper uc-file-uploader-regular {
+    uc-simple-btn button {
+      background-color: #A78BFA;
+      font-size:1.2em;
+      padding:0.8em 4em;
+    }
+    uc-simple-btn button:hover {
+      background-color: #8B5CF6;
+    }
+  }

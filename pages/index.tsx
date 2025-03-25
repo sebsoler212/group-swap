@@ -32,7 +32,7 @@ export default function HomePage() {
 
   return (
     <main style={{ padding: 20 }}>
-      <h1>Home Page</h1>
+      <h1 className="bg-primary">Home Page</h1>
       <button onClick={signInWithGoogle}>Continue with Google</button>
     </main>
   )
