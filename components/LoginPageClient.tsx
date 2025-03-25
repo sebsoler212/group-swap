@@ -1,10 +1,13 @@
+"use client"
+
 import { FormEvent, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter, useSearchParams } from "next/navigation"
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
-export default function DynamicAuthPage() {
+export default function LoginPageClient() {
   const router = useRouter()
   const supabaseClient = useSupabaseClient()
+  const searchParams = useSearchParams();
 
   // Form fields
   const [email, setEmail] = useState('')
@@ -13,11 +16,11 @@ export default function DynamicAuthPage() {
 
   // 1) If URL includes '?email=...', prefill the email state
   useEffect(() => {
-    if (typeof router.query.email === 'string') {
+    if (typeof searchParams.get("email") === 'string') {
       // router.query.email is already URL-decoded by Next.js
-      setEmail(router.query.email)
+      setEmail(searchParams.get("email") ?? '')
     }
-  }, [router.query.email])
+  }, [searchParams.get("email")])
 
   // 2) Handle sign up / sign in logic
   const handleAuth = async (e: FormEvent<HTMLFormElement>) => {
