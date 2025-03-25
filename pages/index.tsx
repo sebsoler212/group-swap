@@ -7,6 +7,13 @@ import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import ImageComparisonSlider from '@/components/ImageComparisonSlider';
 import FacebookReviewCard from '@/components/FbReviewCard';
 import TransformationShowcase from '@/components/TransformationShowcase';
+import SceneCards from '@/components/SceneCards';
+import FeatureComparison from '@/components/FeatureComparison';
+import Faqsection from '@/components/Faqsection';
+import Pricing from '@/components/Pricing';
+import ImageTextHeroSection from '@/components/ImageTextHeroSection';
+import FooterLinks from '@/components/FooterLinks';
+import BottomLoginBar from '@/components/BottomLoginBar';
 
 /******* STYLE IMPORTS ****************/
 import { motion, AnimatePresence } from 'framer-motion'
@@ -112,14 +119,14 @@ export default function HomePage() {
             />
             <button
               onClick={handleEmailSubmit}
-              className="px-8 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg whitespace-nowrap cursor-pointer"
+              className="px-8 py-2 border border-gray-300 rounded-lg bg-whit text-black hover:bg-slate-100 rounded-lg whitespace-nowrap cursor-pointer"
             >
               Create Photos
             </button>
           </div>
           <button
             onClick={signInWithGoogle}
-            className="w-full flex items-center justify-center gap-2 py-2 border border-gray-300 rounded-lg bg-white text-black hover:bg-slate-100 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
           >
             <FaGoogle /> Continue with Google
           </button>
@@ -183,7 +190,7 @@ export default function HomePage() {
           </div>
 
         </div>
-      </section> {/* FB REVIEWS */}
+      </section> {/* end FB REVIEWS */}
 
       {/********* Templates Grid ***********/}
       <div className="max-w-5xl">
@@ -224,7 +231,90 @@ export default function HomePage() {
       {/********* Transformation Showcaes ***********/}
       <TransformationShowcase />
 
+      <div className="text-center max-w-5xl">
+        <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mt-2 md:mt-8">
+          🔥 New Photo packs just dropped
+        </h2>
+        <p className="mt-4 text-lg text-slate-600">
+          Photo packs are themed collections. With a single group photo and one click you can face swap everyone into every photo in the pack.
+          It's the perfect way to create photos for every occasion.
+        </p>
+      </div>
+      
+      {/* Photo Packs */}
+      <SceneCards />
 
+      {/********* FB REVIEWS ***********/}
+      <section className="py-4 max-w-5xl">
+        <div className="w-full overflow-hidden py-2">
+
+          <div className="md:grid md:grid-cols-3 gap-4 hidden md:grid">
+            {/* 3-column layout on desktop */}
+            <FacebookReviewCard
+              avatar="/person1.png"
+              name="Maria Korsgaard"
+              date="15/04/2021"
+              text="The host was waiting for us and was very polite and helpful. Apartments are amazing!"
+            />
+            <FacebookReviewCard
+              avatar="/person2.png"
+              name="David Kim"
+              date="28/03/2021"
+              text="Fantastic experience. The place was clean, modern, and better than the photos. Highly recommend!"
+            />
+            <FacebookReviewCard
+              avatar="/person3.png"
+              name="Sophia Reyes"
+              date="10/03/2021"
+              text="Excellent host and beautiful scenery. We'll definitely be coming back next year!"
+            />
+          </div>
+
+          <div className="flex md:hidden gap-2 snap-x snap-mandatory overflow-x-auto w-screen scrollbar-none">
+            {/* Horizontal scroll on mobile */}
+            <div className="flex gap-4">
+              <FacebookReviewCard
+                avatar="/person1.png"
+                name="Maria Korsgaard"
+                date="15/04/2021"
+                text="The host was waiting for us and was very polite and helpful. Apartments are amazing!"
+              />
+              <FacebookReviewCard
+                avatar="/person2.png"
+                name="David Kim"
+                date="28/03/2021"
+                text="Fantastic experience. The place was clean, modern, and better than the photos. Highly recommend!"
+              />
+              <FacebookReviewCard
+                avatar="/person3.png"
+                name="Sophia Reyes"
+                date="10/03/2021"
+                text="Excellent host and beautiful scenery. We'll definitely be coming back next year!"
+              />
+            </div>
+          </div>
+
+        </div>
+      </section> {/* end FB REVIEWS */}
+
+      {/* Feature Comparison */}
+      <FeatureComparison />
+
+      {/* Faqsection */}
+      <Faqsection />
+
+      {/* Pricing */}
+      <Pricing />
+
+      {/* ImageTextHero */}
+      <ImageTextHeroSection imgUrl='/swap/output-1.webp'/>
+
+      {/* FooterLinks */}
+      <FooterLinks />
+      
+
+      {/* Bottom Login */}
+      <BottomLoginBar />
 
     {/* end body container */}
     </div>
