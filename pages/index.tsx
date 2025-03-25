@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
+import ImageComparisonSlider from '@/components/ImageComparisonSlider';
+
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaGoogle } from 'react-icons/fa'
 
@@ -17,12 +19,14 @@ export default function HomePage() {
     }
   }, [user, router])
 
+  /******* EMAIL AUTH ****************/
   const [email, setEmail] = useState('')
   const handleEmailSubmit = () => {
     if (!email) return;
     router.push(`/login?email=${encodeURIComponent(email)}`)
   }
 
+  /******* GOOGLE AUTH ****************/
   const signInWithGoogle = async () => {
     // Attempt sign-in with Google
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
@@ -113,8 +117,16 @@ export default function HomePage() {
             <FaGoogle /> Continue with Google
           </button>
         </div>
+      </div> {/* end top section */}
 
-      </div>
+      {/* Comparison Slider */}
+      <ImageComparisonSlider
+        beforeSrc="/4people.webp"
+        afterSrc="/4update.webp"
+      />
+
+
+    {/* end body container */}
     </div>
   )
 }
