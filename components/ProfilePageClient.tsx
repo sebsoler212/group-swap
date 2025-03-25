@@ -11,8 +11,11 @@ export default function ProfilePage() {
   // Handle logout
   const handleLogout = async () => {
     await supabaseClient.auth.signOut()
-    // Redirect to homepage (or wherever you prefer)
     router.replace('/')
+  }
+
+  const goToCreate = async () => {
+    router.replace('/create')
   }
 
   return (
@@ -20,6 +23,15 @@ export default function ProfilePage() {
       <h1>Profile Page</h1>
       <p>Your email: {user?.email}</p>
       <button onClick={handleLogout}>Log Out</button>
+
+      <div>
+        <button
+          onClick={goToCreate}
+          className="px-8 py-2 border border-gray-300 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
+        >
+          Create Photos
+        </button>
+      </div>
     </main>
   )
 }

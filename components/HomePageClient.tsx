@@ -117,7 +117,7 @@ export default function HomePageClient() {
             />
             <button
               onClick={handleEmailSubmit}
-              className="px-8 py-2 border border-gray-300 rounded-lg bg-whit text-black hover:bg-slate-100 rounded-lg whitespace-nowrap cursor-pointer"
+              className="px-8 py-2 border border-gray-300 rounded-lg bg-white text-black hover:bg-slate-100 rounded-lg whitespace-nowrap cursor-pointer"
             >
               Create Photos
             </button>
