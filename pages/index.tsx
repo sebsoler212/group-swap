@@ -1,12 +1,19 @@
+/******* CORE IMPORTS ****************/
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
+/******* COMPONENTS IMPORTS ****************/
 import ImageComparisonSlider from '@/components/ImageComparisonSlider';
+import FacebookReviewCard from '@/components/FbReviewCard';
+import TransformationShowcase from '@/components/TransformationShowcase';
 
+/******* STYLE IMPORTS ****************/
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaGoogle } from 'react-icons/fa'
 
+
+/******* HOME PAGE ****************/
 export default function HomePage() {
   const supabaseClient = useSupabaseClient()
   const user = useUser()
@@ -119,11 +126,104 @@ export default function HomePage() {
         </div>
       </div> {/* end top section */}
 
-      {/* Comparison Slider */}
+      {/********* Comparison Slider ***********/}
       <ImageComparisonSlider
         beforeSrc="/4people.webp"
         afterSrc="/4update.webp"
       />
+
+      {/********* FB REVIEWS ***********/}
+      <section className="py-4 max-w-5xl">
+        <div className="w-full overflow-hidden py-2">
+
+          <div className="md:grid md:grid-cols-3 gap-4 hidden md:grid">
+            {/* 3-column layout on desktop */}
+            <FacebookReviewCard
+              avatar="/person1.png"
+              name="Maria Korsgaard"
+              date="15/04/2021"
+              text="The host was waiting for us and was very polite and helpful. Apartments are amazing!"
+            />
+            <FacebookReviewCard
+              avatar="/person2.png"
+              name="David Kim"
+              date="28/03/2021"
+              text="Fantastic experience. The place was clean, modern, and better than the photos. Highly recommend!"
+            />
+            <FacebookReviewCard
+              avatar="/person3.png"
+              name="Sophia Reyes"
+              date="10/03/2021"
+              text="Excellent host and beautiful scenery. We'll definitely be coming back next year!"
+            />
+          </div>
+
+          <div className="flex md:hidden gap-2 snap-x snap-mandatory overflow-x-auto w-screen scrollbar-none">
+            {/* Horizontal scroll on mobile */}
+            <div className="flex gap-4">
+              <FacebookReviewCard
+                avatar="/person1.png"
+                name="Maria Korsgaard"
+                date="15/04/2021"
+                text="The host was waiting for us and was very polite and helpful. Apartments are amazing!"
+              />
+              <FacebookReviewCard
+                avatar="/person2.png"
+                name="David Kim"
+                date="28/03/2021"
+                text="Fantastic experience. The place was clean, modern, and better than the photos. Highly recommend!"
+              />
+              <FacebookReviewCard
+                avatar="/person3.png"
+                name="Sophia Reyes"
+                date="10/03/2021"
+                text="Excellent host and beautiful scenery. We'll definitely be coming back next year!"
+              />
+            </div>
+          </div>
+
+        </div>
+      </section> {/* FB REVIEWS */}
+
+      {/********* Templates Grid ***********/}
+      <div className="max-w-5xl">
+
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-4" id="reviews">
+          {[
+            { src: '/landingwebp/vikings.webp', title: 'Vikings', link: '/photo/vikings' },
+            { src: '/landingwebp/samurai.webp', title: 'Samurai', link: '/photo/samurai' },
+            { src: '/landingwebp/bond.webp', title: 'Bond', link: '/photo/spies' },
+            { src: '/landingwebp/supermen.webp', title: 'Supermen', link: '/photo/vikings' },
+            { src: '/landingwebp/cowboys.webp', title: 'Cowboys', link: '/photo/cowboys' },
+            { src: '/landingwebp/firemen.webp', title: 'Firemen', link: '/photo/vikings' },
+            { src: '/landingwebp/knights.webp', title: 'Knights', link: '/photo/knights' },
+            { src: '/landingwebp/spartans.webp', title: 'Spartans', link: '/photo/spartans' },
+            { src: '/landingwebp/dragon-trainer.webp', title: 'Dragon Trainer', link: '/photo/vikings' },
+            { src: '/landingwebp/jungle-explorers.webp', title: 'Jungle', link: '/photo/vikings' },
+            { src: '/landingwebp/space.webp', title: 'Space', link: '/photo/vikings' },
+            { src: '/landingwebp/greeks.webp', title: 'Greeks', link: '/photo/vikings' }
+          ].map((item, index) => (
+            <div 
+              key={index}
+              className="bg-[#0B1120] rounded-xl overflow-hidden shadow hover:shadow-lg transition-all cursor-pointer"
+              onClick={() => router.push(item.link)}
+            >
+              <img src={item.src} alt={item.title} className="w-full h-auto object-cover" />
+            </div>
+          ))}
+        </div>
+        
+      </div>{/* end Templates Grid */}
+      
+      <div className="text-center max-w-5xl">
+        <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mt-8">
+            Upload a <span className="text-primary">single group photo</span> and pick templates.
+        </h2>
+      </div>
+
+      {/********* Transformation Showcaes ***********/}
+      <TransformationShowcase />
+
 
 
     {/* end body container */}
