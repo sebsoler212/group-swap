@@ -65,9 +65,6 @@ export default function BottomLoginBar() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoComplete="off"
-              name="dummy-email"
-              data-form-type="other"
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-white text-black"
             />
 
