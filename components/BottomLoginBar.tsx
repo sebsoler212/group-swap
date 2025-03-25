@@ -79,7 +79,7 @@ export default function BottomLoginBar() {
 
           <button
             onClick={signInWithGoogle}
-            className="w-full w-auto flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-primary hover:bg-primary-dark text-white"
+            className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-primary hover:bg-primary-dark text-white"
           >
             <FaGoogle /> Continue with Google
           </button>
