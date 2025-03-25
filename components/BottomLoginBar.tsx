@@ -71,7 +71,7 @@ export default function BottomLoginBar() {
 
             <button
               onClick={handleEmailSubmit}
-              className="px-4 md:px-8 py-2 border border-gray-300 rounded-lg bg-white text-black hover:bg-slate-100 whitespace-nowrap"
+              className="px-6 md:px-8 py-2 border border-gray-300 rounded-lg bg-white text-black hover:bg-slate-100 whitespace-nowrap"
             >
               Create Photos
             </button>
