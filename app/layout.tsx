@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import SupabaseProvider from "./SupabaseProvider"; // your new client component
 
 export const metadata: Metadata = {
-  title: "My Next App",
-  description: "App Router + Supabase session",
+  title: "Group Swap",
+  description: "Group Swap | Limitless Group Photos",
 };
 
 export default function RootLayout({

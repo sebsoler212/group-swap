@@ -1,6 +1,7 @@
 "use client"; // Ensure this is a client component
 
-import { motion } from 'framer-motion';
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+
 import { useRouter } from 'next/navigation';
 
 import { useParams } from "next/navigation";
@@ -8,6 +9,8 @@ import { useEffect, useState } from "react";
 
 import TransformationShowcase from '@/components/TransformationShowcase';
 import FooterLinks from '@/components/FooterLinks';
+import BottomLoginBar from '@/components/BottomLoginBar';
+import { FaGoogle } from 'react-icons/fa';
 
 import Image from 'next/image';
 
@@ -53,8 +56,26 @@ const activities = [
 export default function PhotoPage() {
   const params = useParams(); // Correct way to get dynamic route params
   const [photo, setPhoto] = useState<{ name: string; description: string; img:string; alt:string; url:string } | null>(null);
+  const [email, setEmail] = useState('');
 
+  const supabaseClient = useSupabaseClient();
   const router = useRouter();
+
+  /******* GOOGLE AUTH ****************/
+  const signInWithGoogle = async () => {
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "https://next-activitybox.ngrok.dev",
+      },
+    });
+
+    if (error) {
+      console.error("Google sign-in error:", error);
+    } else {
+      console.log("Google sign-in started:", data);
+    }
+  };
 
   useEffect(() => {
     if (!params.photoName) return;
@@ -63,6 +84,11 @@ export default function PhotoPage() {
     const matchedPhoto = activities.find((act) => act.url === params.photoName);
     setPhoto(matchedPhoto || null);
   }, [params.photoName]);
+
+  const handleEmailSubmit = () => {
+    if (!email) return;
+    router.push(`/login?email=${encodeURIComponent(email)}`);
+  };
 
   return (
 
@@ -95,6 +121,7 @@ export default function PhotoPage() {
               </div>
               
               {/* Showcaes */}
+              <div id="reviews"></div>
               <TransformationShowcase />
               
             </>
@@ -105,15 +132,31 @@ export default function PhotoPage() {
 
         <div className="col-span-1 p-0 bg-white h-fit md:sticky md:top-0 z-40">
 
-          <div className="sm:pt-0 md:pt-10">
-            <motion.button 
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => router.push('/profile')}
-              className="w-full px-8 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg shadow-lg hover:shadow-xl transition-all"
+          <div className="w-full max-w-md space-y-4 md:mt-8">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
+                name="dummy-email"
+                data-form-type="other"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-white text-black"
+              />
+              <button
+                onClick={handleEmailSubmit}
+                className="px-8 py-2 rounded-lg border border-gray-300 rounded-lg bg-white text-black hover:bg-slate-100 whitespace-nowrap cursor-pointer"
+              >
+                Create Photos
+              </button>
+            </div>
+            <button
+              onClick={signInWithGoogle}
+              className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
             >
-              Create Photos Now ➡️
-            </motion.button>
+              <FaGoogle /> Continue with Google
+            </button>
           </div>
           <p className="mt-6 mb-6">
             Upload a single picture of your family or friends and swap them into thousands of templates. Studio quality in one click.
@@ -143,6 +186,9 @@ export default function PhotoPage() {
 
       {/* FooterLinks */}
       <FooterLinks />
+
+      {/* Bottom Login */}
+      <BottomLoginBar />
   
     </div>
 
