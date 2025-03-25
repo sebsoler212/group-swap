@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from "next/navigation"
 
@@ -8,13 +7,6 @@ export default function ProfilePage() {
   const user = useUser()
   const supabaseClient = useSupabaseClient()
   const router = useRouter()
-
-  useEffect(() => {
-    // If there's no user, redirect to home
-    if (!user) {
-      router.replace('/')
-    }
-  }, [user, router])
 
   // Handle logout
   const handleLogout = async () => {
@@ -26,14 +18,8 @@ export default function ProfilePage() {
   return (
     <main style={{ padding: 20 }}>
       <h1>Profile Page</h1>
-      {user ? (
-        <>
-          <p>Your email: {user.email}</p>
-          <button onClick={handleLogout}>Log Out</button>
-        </>
-      ) : (
-        <p>Loading session...</p>
-      )}
+      <p>Your email: {user?.email}</p>
+      <button onClick={handleLogout}>Log Out</button>
     </main>
   )
 }

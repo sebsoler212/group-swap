@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useUser } from '@supabase/auth-helpers-react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { FileUploaderRegular } from "@uploadcare/react-uploader";
@@ -33,14 +32,6 @@ const PILL_OPTIONS = ['All', 'Vikings', 'Cowboys', 'Samurai', 'Knights', 'Cool',
 export default function CreatePage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const user = useUser()
-
-    useEffect(() => {
-        // If there's no user, redirect to home
-        if (!user) {
-            router.replace('/')
-        }
-    }, [user, router])
 
     const [step, setStep] = useState<number>(1);
     useEffect(() => {
@@ -183,9 +174,6 @@ export default function CreatePage() {
     return (
         <div className="flex flex-col h-screen">
 
-        {user ? (
-        <>
-            
             {/* Fixed Header */}
             <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
                 {step === 1 && "Select a Template"}
@@ -328,11 +316,6 @@ export default function CreatePage() {
                     </>
                 )}
             </footer>
-
-            </>
-        ) : (
-            <p>Loading session...</p>
-        )}
 
         </div>
     );

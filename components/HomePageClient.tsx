@@ -27,7 +27,7 @@ export default function HomePageClient() {
   // If user is already logged in, redirect to /profile
   useEffect(() => {
     if (user) {
-      router.push("/create");
+      router.push("/profile");
     }
   }, [user, router]);
 
