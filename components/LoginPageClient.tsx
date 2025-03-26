@@ -51,7 +51,7 @@ export default function LoginPageClient() {
         }
 
         // Successfully signed in existing user
-        router.push('/profile')
+        router.push('/create')
         return
       } else {
         // Some other error creating user
@@ -76,8 +76,8 @@ export default function LoginPageClient() {
       return
     }
 
-    // All good: user created & signed in => go to /profile
-    router.push('/profile')
+    // All good: user created & signed in => go to /create
+    router.push('/create')
   }
 
   return (

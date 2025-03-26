@@ -24,10 +24,10 @@ export default function HomePageClient() {
   const user = useUser();
   const router = useRouter();
 
-  // If user is already logged in, redirect to /profile
+  // If user is already logged in, redirect to /create
   useEffect(() => {
     if (user) {
-      router.push("/profile");
+      router.push("/create");
     }
   }, [user, router]);
 

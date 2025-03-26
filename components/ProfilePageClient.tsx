@@ -11,7 +11,7 @@ export default function ProfilePage() {
   // Handle logout
   const handleLogout = async () => {
     await supabaseClient.auth.signOut()
-    router.replace('/')
+    router.push('/')
   }
 
   const goToCreate = async () => {
