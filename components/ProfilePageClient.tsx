@@ -21,8 +21,13 @@ export default function ProfilePage() {
   return (
     <main className="flex flex-col h-screen">
       <div
+          onClick={goToCreate}
+          className="fixed top-3 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-10">
+           👨‍👩‍👧‍👧   
+      </div>
+      <div
           onClick={handleLogout}
-          className="fixed top-5 right-5 bg-gray-800 text-white text-sm cursor-pointer z-10">
+          className="fixed top-5 right-4 bg-gray-800 text-white text-sm cursor-pointer z-10">
               🔒 Logout
       </div>
       <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
