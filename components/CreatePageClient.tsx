@@ -180,8 +180,14 @@ export default function CreatePage() {
 
             {/* Fixed Header */}
             <div
-                className="fixed top-3 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-10">
-                👨‍👩‍👧‍👧   
+                className="fixed top-2 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-10">
+                <Image 
+                    src="/glogo.png"
+                    alt="Group Swap"
+                    className="text-center cursor-pointer"
+                    width={58}
+                    height={44}
+                /> 
             </div>
             <div 
                 onClick={goToProfile}

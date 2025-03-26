@@ -52,8 +52,14 @@ export default function ProfilePage() {
     <main className="flex flex-col h-screen">
       <div
           onClick={goToCreate}
-          className="fixed top-3 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-40">
-           👨‍👩‍👧‍👧   
+          className="fixed top-2 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-40">
+           <Image 
+              src="/glogo.png"
+              alt="Group Swap"
+              className="text-center cursor-pointer"
+              width={58}
+              height={44}
+            />
       </div>
       <div
           onClick={handleLogout}
