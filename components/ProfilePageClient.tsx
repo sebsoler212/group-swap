@@ -74,12 +74,11 @@ export default function ProfilePage() {
 
             {/* individual photo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2">
-              <div className="col-span-1 mx-auto md:mx-0 cursor-pointer" onClick={handleImageLoad}>
-                <ImageWithLoader
-                  imageSrc={imageSrc}
-                  loading={loading}
-                  alt="Generated result"
-                />
+              <div className="col-span-1 w-full mx-auto md:mx-0 cursor-pointer" onClick={handleImageLoad}>
+
+                {!imageSrc && (
+                  <ImageWithLoader placeholderSrc="/4update.webp" />
+                )}
 
                 {/* Invisible img to trigger onLoad event */}
                 {imageSrc && (
@@ -107,8 +106,8 @@ export default function ProfilePage() {
 
             {/* individual photo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2">
-              <div className="col-span-1 mx-auto md:mx-0">
-                <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center cursor-pointer rounded-lg" />
+              <div className="col-span-1 w-full mx-auto md:mx-0">
+                <Image src="/4update.webp" alt="" width={300} height={0} className="w-full h-auto text-center cursor-pointer rounded-lg" />
               </div>
               <div className="col-span-1">
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
@@ -136,8 +135,8 @@ export default function ProfilePage() {
 
             {/* individual photo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2">
-              <div className="col-span-1 mx-auto md:mx-0">
-                <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center cursor-pointer rounded-lg" />
+              <div className="col-span-1 w-full mx-auto md:mx-0">
+                <Image src="/4update.webp" alt="" width={300} height={0} className="w-full h-auto text-center cursor-pointer rounded-lg" />
               </div>
               <div className="col-span-1">
                 <div className="grid grid-cols-1 gap-2">
