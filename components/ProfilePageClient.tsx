@@ -85,7 +85,7 @@ export default function ProfilePage() {
                   <Image 
                     src={imageSrc}
                     alt="hidden"
-                    className="hidden w-auto h-auto text-center cursor-pointer rounded-lg"
+                    className="hidden w-full h-auto text-center cursor-pointer rounded-lg"
                     onLoad={handleImageLoad}
                     width={300}
                     height={0}
