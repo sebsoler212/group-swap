@@ -19,18 +19,34 @@ export default function ProfilePage() {
   }
 
   return (
-    <main style={{ padding: 20 }}>
-      <h1>Profile Page</h1>
-      <p>Your email: {user?.email}</p>
-      <button onClick={handleLogout}>Log Out</button>
+    <main className="flex flex-col h-screen">
+      <div
+          onClick={handleLogout}
+          className="fixed top-5 right-5 bg-gray-800 text-white text-sm cursor-pointer z-10">
+              🔒 Logout
+      </div>
+      <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
+        My Profile
+      </header>
+
+      <div className="flex-grow pt-16 pb-14 px-4 overflow-hidden">
+        <h1>Profile Page</h1>
+        <p>Your email: {user?.email}</p>
+      </div>
+
+      <footer className="fixed bottom-0 w-full bg-gray-900 text-white py-4 flex justify-center gap-4">
+        <button
+            onClick={goToCreate}
+            className="px-24 py-2 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
+          >
+            Create Photos
+        </button>
+      </footer>
+
+
 
       <div>
-        <button
-          onClick={goToCreate}
-          className="px-8 py-2 border border-gray-300 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
-        >
-          Create Photos
-        </button>
+        
       </div>
     </main>
   )

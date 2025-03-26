@@ -181,7 +181,7 @@ export default function CreatePage() {
             {/* Fixed Header */}
             <div 
                 onClick={goToProfile}
-                className="absolute top-5 right-5 bg-gray-800 text-white text-sm cursor-pointer z-10">
+                className="fixed top-5 right-5 bg-gray-800 text-white text-sm cursor-pointer z-10">
                     🖼 Profile
             </div>
             <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
