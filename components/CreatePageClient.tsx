@@ -171,13 +171,22 @@ export default function CreatePage() {
         setSelectedPill('All');
     };
 
+    const goToProfile = async () => {
+        router.push('/profile')
+    }
+
     return (
         <div className="flex flex-col h-screen">
 
             {/* Fixed Header */}
+            <div 
+                onClick={goToProfile}
+                className="absolute top-5 right-5 bg-gray-800 text-white text-sm cursor-pointer z-10">
+                    🖼 Profile
+            </div>
             <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
                 {step === 1 && "Select a Template"}
-                {step === 2 && "Upload your group photo"}
+                {step === 2 && "Add group photo"}
                 {step === 3 && "Done"}
             </header>
 
