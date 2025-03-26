@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import Image from 'next/image'
 import { BiPurchaseTag } from "react-icons/bi"
 import { FaEye } from "react-icons/fa"
+import { IoMdDownload } from "react-icons/io"
 
 export default function ProfilePage() {
   const user = useUser()
@@ -81,23 +82,16 @@ export default function ProfilePage() {
                 <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center cursor-pointer" />
               </div>
               <div className="col-span-1">
-                <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
-                  <div className="col-span-1 w-full">
-                    <button
-                      className="w-full flex items-center justify-center p-2 rounded-lg border bg-white text-black hover:bg-slate-100 cursor-pointer"
-                    >
-                      <FaEye /> <span className="pl-1">View Sample</span>
-                    </button>
+                <div className="grid grid-cols-1 gap-2">
+                  <div className="col-span-1w-full">
+                    <p className="text-sm text-center font-bold px-8">✅ Purchase Successful</p>
                   </div>
                   <div className="col-span-1 w-full">
                     <button
-                      className="w-full flex items-center justify-center p-2 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
+                      className="w-full flex items-center justify-center p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white cursor-pointer"
                     >
-                      <BiPurchaseTag /> <span className="pl-1">Buy Photo - $2</span>
+                      <IoMdDownload /><span className="pl-1">Download</span>
                     </button>
-                  </div>
-                  <div className="col-span-2 md:col-span-1 w-full">
-                    <p className="text-sm text-center font-bold px-8">Buy photo to access the studio quality version with watermark removed.</p>
                   </div>
                 </div>
                 
