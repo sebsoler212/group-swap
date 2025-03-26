@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import TopBarPublic from '@/components/TopBarPublic';
 import TransformationShowcase from '@/components/TransformationShowcase';
 import FooterLinks from '@/components/FooterLinks';
 import BottomLoginBar from '@/components/BottomLoginBar';
@@ -94,9 +95,11 @@ export default function PhotoPage() {
 
     <div className="min-h-screen bg-white">
 
+      <TopBarPublic />
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
 
-        <div className="col-span-1 md:col-span-2 bg-white p-0 pt-6">
+        <div className="col-span-1 md:col-span-2 bg-white p-0 pt-16">
           {photo ? (
             <>
               <Image 
@@ -130,9 +133,9 @@ export default function PhotoPage() {
           )}
         </div>
 
-        <div className="col-span-1 p-0 bg-white h-fit md:sticky md:top-0 z-40">
+        <div className="col-span-1 p-0 bg-white h-fit md:sticky md:top-0 z-20">
 
-          <div className="w-full max-w-md space-y-4 md:mt-8">
+          <div className="w-full max-w-md space-y-4 md:mt-16">
             <div className="flex flex-col sm:flex-row gap-4">
               <input
                 type="email"
@@ -158,13 +161,13 @@ export default function PhotoPage() {
               <FaGoogle /> Continue with Google
             </button>
           </div>
-          <p className="mt-6 mb-6">
+          <p className="mt-4 mb-4">
             Upload a single picture of your family or friends and swap them into thousands of templates. Studio quality in one click.
           </p>
 
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 mt-6">Related Photos</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Related Photos</h2>
 
-          <div className="flex grid grid-cols-2 gap-4 mb-4 lg:mb-2">
+          <div className="flex grid grid-cols-2 gap-4">
             {[
               { src: '/landingwebp/vikings.webp', title: 'Vikings' },
               { src: '/landingwebp/samurai.webp', title: 'Samurai' },

@@ -180,7 +180,7 @@ export default function CreatePage() {
 
             {/* Fixed Header */}
             <div
-                className="fixed top-2 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-10">
+                className="fixed top-2 left-4 cursor-pointer z-10">
                 <Image 
                     src="/glogo.png"
                     alt="Group Swap"
@@ -191,7 +191,7 @@ export default function CreatePage() {
             </div>
             <div 
                 onClick={goToProfile}
-                className="fixed top-5 right-4 bg-gray-800 text-white text-sm cursor-pointer z-10">
+                className="fixed top-5 right-4 text-white text-sm cursor-pointer z-10">
                     🖼 Profile
             </div>
             <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">

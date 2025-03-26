@@ -1,6 +1,13 @@
 'use client';
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useParams } from "next/navigation";
+import { FaGoogle } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+
+import TopBarPublic from '@/components/TopBarPublic';
 import ImageComparisonSlider from '@/components/ImageComparisonSlider';
 import BottomLoginBar from '@/components/BottomLoginBar';
 import TransformationShowcase from '@/components/TransformationShowcase';
@@ -11,12 +18,6 @@ import Faqsection from '@/components/Faqsection';
 import Pricing from '@/components/Pricing';
 import ImageTextHeroSection from '@/components/ImageTextHeroSection';
 import FooterLinks from '@/components/FooterLinks';
-
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useParams } from "next/navigation";
-import { FaGoogle } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const packs = [
     { description: "Hop into the spirit of Easter with a joyful and colorful photo shoot. Capture the fun of the season with bunny ears, Easter eggs, and bright spring colors for a cheerful, family-friendly look.",
@@ -145,7 +146,9 @@ export default function PackPage() {
     // bg-[#0B1120]
     <div className="relative min-h-screen bg-white flex flex-col items-center px-6 py-12 z-10 pb-20">
 
-      <div id="top-section" className="w-full max-w-5xl mt-2 md:mt-4 flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+      <TopBarPublic />
+
+      <div id="top-section" className="w-full max-w-5xl mt-4 md:mt-6 flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
         {/* Text Column */}
         <div className="text-center md:text-left max-w-xl">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight flex flex-wrap justify-center md:justify-start gap-2">
@@ -290,6 +293,7 @@ export default function PackPage() {
       </div>
 
       {/* Photo Packs */}
+      <div id="packs"></div>
       <SceneCards />
 
       <section className="py-4 max-w-5xl">

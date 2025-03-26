@@ -7,6 +7,8 @@ import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaGoogle } from "react-icons/fa";
 
+
+import TopBarPublic from "@/components/TopBarPublic";
 import ImageComparisonSlider from "@/components/ImageComparisonSlider";
 import FacebookReviewCard from "@/components/FbReviewCard";
 import TransformationShowcase from "@/components/TransformationShowcase";
@@ -77,9 +79,12 @@ export default function HomePageClient() {
   /******* RENDER (was the return in page.tsx) ****************/
   return (
     <div className="relative min-h-screen bg-white flex flex-col items-center px-6 py-12 z-10 pb-20">
+
+      <TopBarPublic />
+
       <div
         id="top-section"
-        className="w-full max-w-5xl mt-2 md:mt-4 flex flex-col md:flex-row items-center justify-between gap-8 mb-8"
+        className="w-full max-w-5xl mt-4 md:mt-6 flex flex-col md:flex-row items-center justify-between gap-8 mb-8"
       >
         {/* Text Column */}
         <div className="text-center md:text-left max-w-xl">
@@ -234,6 +239,7 @@ export default function HomePageClient() {
       </div>
 
       {/* Photo Packs */}
+      <div id="packs"></div>
       <SceneCards />
 
       {/* More FB reviews */}
