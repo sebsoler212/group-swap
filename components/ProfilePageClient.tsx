@@ -15,7 +15,7 @@ export default function ProfilePage() {
   }
 
   const goToCreate = async () => {
-    router.replace('/create')
+    router.push('/create')
   }
 
   return (
