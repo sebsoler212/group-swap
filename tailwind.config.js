@@ -45,7 +45,10 @@ module.exports = {
         'outline-black': '-2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black',
         'outline-bold': '-3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black, 0px -3px 0 black, 0px 3px 0 black, -3px 0px 0 black, 3px 0px 0 black',
         'outline-extra-bold': '-12px -12px 0 black, 12px -12px 0 black, -12px 12px 0 black, 12px 12px 0 black, -12px 0px 0 black, 12px 0px 0 black, 0px -12px 0 black, 0px 12px 0 black, -6px -12px 0 black, 6px -12px 0 black, -6px 12px 0 black, 6px 12px 0 black'
-      }
+      },
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      },
     },
   },
   plugins: [],

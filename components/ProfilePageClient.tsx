@@ -3,6 +3,9 @@
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from "next/navigation"
 
+import { useState } from "react"
+import ImageWithLoader from "./ImageWithLoader"
+
 import Image from 'next/image'
 import { BiPurchaseTag } from "react-icons/bi"
 import { FaEye } from "react-icons/fa"
@@ -23,19 +26,41 @@ export default function ProfilePage() {
     router.push('/create')
   }
 
+  const [loading, setLoading] = useState(false)
+  const [imageSrc, setImageSrc] = useState("")
+
+  const handleGenerate = async () => {
+    setLoading(true);
+    setImageSrc(""); // Optional: clear previous image
+
+    // Simulate API call to generate image
+    const response = await fetch("/api/generate-image"); // replace with your actual endpoint
+    const data = await response.json();
+
+    // Update image and turn off loading
+    setImageSrc(data.imageUrl);
+  };
+
+  // When image is fully loaded in browser, stop loading state
+  const handleImageLoad = () => {
+    //TODO: REMOVE HARD CODED IMAGE.. JUST USE URL
+    setImageSrc("/4update.webp");
+    setLoading(false);
+  };
+
   return (
     <main className="flex flex-col h-screen">
       <div
           onClick={goToCreate}
-          className="fixed top-3 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-10">
+          className="fixed top-3 left-4 bg-gray-800 text-white text-4xl cursor-pointer z-40">
            👨‍👩‍👧‍👧   
       </div>
       <div
           onClick={handleLogout}
-          className="fixed top-5 right-4 bg-gray-800 text-white text-sm cursor-pointer z-10">
+          className="fixed top-5 right-4 bg-gray-800 text-white text-sm cursor-pointer z-40">
               🔒 Logout
       </div>
-      <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
+      <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold z-30">
         My Profile
       </header>
 
@@ -49,8 +74,41 @@ export default function ProfilePage() {
 
             {/* individual photo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2">
+              <div className="col-span-1 mx-auto md:mx-0 cursor-pointer" onClick={handleImageLoad}>
+                <ImageWithLoader
+                  imageSrc={imageSrc}
+                  loading={loading}
+                  alt="Generated result"
+                />
+
+                {/* Invisible img to trigger onLoad event */}
+                {imageSrc && (
+                  <Image 
+                    src={imageSrc}
+                    alt="hidden"
+                    className="hidden w-auto h-auto text-center cursor-pointer rounded-lg"
+                    onLoad={handleImageLoad}
+                    width={300}
+                    height={0}
+                  />
+                )}
+              </div>
+              <div className="col-span-1">
+                <div className="grid grid-cols-1 gap-2">
+                  <div className="col-span-1w-full">
+                    <p className="text-sm text-center px-8">
+                      Your image is being created. This usually takes around 1-2 mintues. 
+                      In the meantime you can always create more photos!</p>
+                  </div>
+                </div>
+                
+              </div>
+            </div> {/* individual content grid */}
+
+            {/* individual photo */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2">
               <div className="col-span-1 mx-auto md:mx-0">
-                <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center cursor-pointer" />
+                <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center cursor-pointer rounded-lg" />
               </div>
               <div className="col-span-1">
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
@@ -79,7 +137,7 @@ export default function ProfilePage() {
             {/* individual photo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2">
               <div className="col-span-1 mx-auto md:mx-0">
-                <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center cursor-pointer" />
+                <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center cursor-pointer rounded-lg" />
               </div>
               <div className="col-span-1">
                 <div className="grid grid-cols-1 gap-2">
