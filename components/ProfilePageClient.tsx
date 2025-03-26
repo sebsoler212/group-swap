@@ -42,7 +42,7 @@ export default function ProfilePage() {
       <footer className="fixed bottom-0 w-full bg-gray-900 text-white py-4 flex justify-center gap-4">
         <button
             onClick={goToCreate}
-            className="px-24 py-2 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
+            className="px-28 py-2 rounded-lg bg-primary hover:bg-primary-dark text-white cursor-pointer"
           >
             Create Photos
         </button>
