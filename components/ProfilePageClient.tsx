@@ -42,6 +42,8 @@ export default function ProfilePage() {
 
           <div className="col-span-1 md:col-span-2 md:border-r-4 border-b-4 md:border-b-0 md:mr-4">
 
+            <h2 className="text-xl font-bold text-center mb-4 mt-1">Generated Content</h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="col-span-1 mx-auto md:mx-0">
                 <Image src="/4update.webp" alt="" width={300} height={0} className="w-auto h-auto text-center" />
@@ -54,9 +56,7 @@ export default function ProfilePage() {
 
           <div className="col-span-1 mt-4 md:mt-0">
 
-            <p className="text-center mb-4">Your email: {user?.email}</p>
-
-            <h2 className="text-xl font-bold text-center">Detected Faces</h2>
+            <h2 className="text-xl font-bold text-center mb-2 md:mt-1">Detected Faces</h2>
             <div className="flex flex-row">
               <div className="p-2">
                 <Image src="/person1.png" alt="Person 1" width={100} height={100} className="w-auto h-auto rounded-full" />
@@ -74,6 +74,9 @@ export default function ProfilePage() {
                 <Image src="/person1.png" alt="Person 4" width={100} height={100} className="w-auto h-auto rounded-full" />
               </div>
             </div>
+
+            <p className="text-center mb-4">Your email: {user?.email}</p>
+
           </div>
 
         </div>
