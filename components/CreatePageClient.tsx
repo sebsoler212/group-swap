@@ -275,7 +275,7 @@ export default function CreatePage() {
                                 <div className="grid grid-cols-4">
                                     {faces.map(({ faceIndex, faceUrl }, index) => (
                                         <div key={faceIndex} className="flex flex-col items-center p-2">
-                                            <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto" />
+                                            <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto rounded-full" />
                                             <div className="flex">
                                                 <button onClick={() => handleRemoveFace(faceIndex)} className="mt-2 px-3 py-1 bg-red-500 text-white text-sm">x</button>
                                                 {index < faces.length - 1 && (
