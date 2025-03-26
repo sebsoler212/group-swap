@@ -70,10 +70,8 @@ export default function ProfilePage() {
 
           <div className="col-span-1 md:col-span-2 md:border-r-4 border-b-4 md:border-b-0 md:mr-4 md:pr-4">
 
-            <h2 className="text-xl font-bold text-center mb-4 mt-1">Generated Content</h2>
-
             {/* individual photo */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 mb-4 border-b-2 mt-4">
               <div className="col-span-1 w-full mx-auto md:mx-0 cursor-pointer" onClick={handleImageLoad}>
 
                 {!imageSrc && (
