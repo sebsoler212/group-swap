@@ -48,6 +48,14 @@ module.exports = {
       },
       animation: {
         'spin-slow': 'spin 2s linear infinite',
+        'shimmer': 'shimmer 2s infinite',
+        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
       },
     },
   },

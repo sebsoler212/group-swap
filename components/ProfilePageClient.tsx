@@ -95,9 +95,25 @@ export default function ProfilePage() {
               <div className="col-span-1">
                 <div className="grid grid-cols-1 gap-2">
                   <div className="col-span-1w-full">
+
+                    <div className="flex items-center justify-center space-x-3 text-xl font-semibold text-primary">
+                      {/* Pulsing Star Emoji */}
+                      <div className="text-yellow-400 animate-ping-slow">✨</div>
+
+                      {/* Shimmering Text */}
+                      <div className="relative inline-block overflow-hidden">
+                        <span className="relative z-10">Generating image...</span>
+                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer pointer-events-none"></span>
+                      </div>
+                      <div className="hidden animate-shimmer animate-ping-slow" />
+
+                      <div className="text-yellow-400 animate-ping-slow">✨</div>
+                    </div>
+
                     <p className="text-sm text-center px-8">
-                      Your image is being created. This usually takes around 1-2 mintues. 
-                      In the meantime you can always create more photos!</p>
+                      Your image is being created. This usually takes around 1-2 mintues. <b>In the meantime you can always create more photos!</b>
+                    </p>
+
                   </div>
                 </div>
                 
