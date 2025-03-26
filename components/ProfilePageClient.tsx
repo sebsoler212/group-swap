@@ -109,7 +109,7 @@ export default function ProfilePage() {
                     </div>
 
                     <p className="text-sm text-center px-8">
-                      Your image is being created. This usually takes around 1-2 mintues. <b>In the meantime you can always create more photos!</b>
+                      Your image is being created. This usually takes about 1-2 mintues. <b>In the meantime you can always create more photos!</b>
                     </p>
 
                   </div>
