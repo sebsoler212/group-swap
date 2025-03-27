@@ -17,6 +17,7 @@ interface FaceResponse {
 
 async function uploadImageToUploadcare(
   imageUrl: string,
+  group: string,
   userId: string,
   supabase: SupabaseClient<any, any, any>
 ): Promise<string | null> {
@@ -43,8 +44,8 @@ async function uploadImageToUploadcare(
     const { error } = await supabase.from('faces').insert({
       id: uuidv4(),
       user_id: userId,
-      type: 'face',
       imgurl: uploadedUrl,
+      group: group
     });
 
     if (error) {
@@ -90,7 +91,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const userId = user.id;
 
     // Parse incoming JSON with the image UUID
-    const { imageUuid }: { imageUuid: string } = await request.json();
+    const { imageUuid, group }: { imageUuid: string, group: string } = await request.json();
     if (!imageUuid) {
       return NextResponse.json({ error: 'Missing imageUuid' }, { status: 400 });
     }
@@ -116,7 +117,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         const paddedHeight = height + 2 * PADDING;
 
         const faceUrl = `${UPLOADCARE_BASE}/${imageUuid}/-/crop/${paddedWidth}x${paddedHeight}/${paddedX},${paddedY}/`;
-        const uploadedUrl = await uploadImageToUploadcare(faceUrl, userId, supabaseService);
+        const uploadedUrl = await uploadImageToUploadcare(faceUrl, group, userId, supabaseService);
 
         return {
           faceIndex: index + 1,

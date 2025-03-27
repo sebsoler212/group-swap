@@ -103,6 +103,8 @@ export default function CreatePage() {
 
         try {
             setLoading(true);
+            const timestamp = new Date().toISOString();
+
             const supabase = createPagesBrowserClient();
 
             const {
@@ -115,7 +117,7 @@ export default function CreatePage() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${session?.access_token}`
                 },
-                body: JSON.stringify({ imageUuid: uuid })
+                body: JSON.stringify({ imageUuid: uuid, group: timestamp })
             });
 
             const data = await response.json();
