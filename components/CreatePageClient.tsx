@@ -196,9 +196,36 @@ export default function CreatePage() {
     };
 
     // Remove a face from the list
-    const handleRemoveFace = (faceIndex: number) => {
-        setFaces(prevFaces => prevFaces.filter(face => face.faceIndex !== faceIndex));
+    const handleRemoveFace = async (faceIndex: number) => {
+        try {
+            setLoading(true);
+            const timestamp = new Date().toISOString();
+
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+
+            const response = await fetch('/api/images/delete-user-face', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${session?.access_token}`
+                },
+                body: JSON.stringify({ faceRowId: faceIndex })
+            });
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching faces:', error);
+        } finally {
+            setFaces(prevFaces => prevFaces.filter(face => face.faceIndex !== faceIndex));
+        }
     };
+
+    const handleHideFace = (faceIndex: number) => {
+        setFaces(prevFaces => prevFaces.filter(face => face.faceIndex !== faceIndex));
+    }
 
     // Swap places between two faces
     const handleSwitchPlaces = (index1: number, index2: number) => {
@@ -368,7 +395,7 @@ export default function CreatePage() {
 
                                             <div className="grid grid-cols-2 w-full">
                                                 <div className="grid-cols-1">
-                                                    <button onClick={() => handleRemoveFace(faceIndex)} className="w-full py-2 bg-yellow-500 text-white text-sm flex items-center justify-center">
+                                                    <button onClick={() => handleHideFace(faceIndex)} className="w-full py-2 bg-yellow-500 text-white text-sm flex items-center justify-center">
                                                         <BiSolidHide />
                                                     </button>
                                                 </div>
