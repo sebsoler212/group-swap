@@ -319,8 +319,7 @@ export default function CreatePage() {
                         </div>
 
                         {faces.length > 0 && (
-                            <div className="">
-                                <h2 className="text-xl font-bold text-center mb-2">Detected Faces</h2>
+                            <div className="mt-2">
                                 <div className="grid grid-cols-4 gap-2 md:gap-4">
                                     {faces.map(({ faceIndex, faceUrl }, index) => (
                                         <div key={faceIndex} className="flex flex-col items-center">
@@ -369,7 +368,7 @@ export default function CreatePage() {
 
             {/* Fixed Footer with Action Buttons */}
             <footer className="fixed bottom-0 w-full bg-gray-900 text-white py-4 flex justify-center gap-4">
-                {step === 2 && faces.length > 0 && (
+                {step === 2 && faces.length > 0 && selectedTemplate && (
                     <button 
                         onClick={handleFaceSwap} 
                         disabled={isSwapping} 
