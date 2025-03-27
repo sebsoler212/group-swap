@@ -34,6 +34,8 @@ export default function CreatePage() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
+    const supabase = createPagesBrowserClient();
+
     const [step, setStep] = useState<number>(1);
     useEffect(() => {
         const updateStepFromUrl = () => {
@@ -53,6 +55,31 @@ export default function CreatePage() {
             window.removeEventListener('popstate', updateStepFromUrl);
         };
     }, []);
+
+    useEffect(() => {
+        const fetchFaces = async () => {
+            try {
+                const {
+                    data: { session },
+                } = await supabase.auth.getSession();
+    
+                const response = await fetch('/api/images/get-user-faces', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${session?.access_token}`
+                    }
+                });
+    
+                const data = await response.json();
+                setFaces(data.cleanFaces);
+            } catch (err) {
+                console.error("Error fetching faces:", err);
+            }
+        };
+
+        fetchFaces();
+     }, []);
 
     const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
     const [faces, setFaces] = useState<Face[]>([]);
@@ -104,8 +131,6 @@ export default function CreatePage() {
         try {
             setLoading(true);
             const timestamp = new Date().toISOString();
-
-            const supabase = createPagesBrowserClient();
 
             const {
                 data: { session },
