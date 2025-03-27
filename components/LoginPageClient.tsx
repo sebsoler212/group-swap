@@ -81,35 +81,38 @@ export default function LoginPageClient() {
   }
 
   return (
-    <main style={{ padding: 20 }}>
-      <h1>Dynamic Auth (Sign Up or Login)</h1>
-      <form onSubmit={handleAuth}>
-        <div style={{ marginBottom: 10 }}>
-          <label htmlFor="email">Email: </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginBottom: 10 }}>
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+    <main className="flex items-center justify-center mt-24">
+      <div className="grid grid-cols-1">
+        <h1>Dynamic Auth (Sign Up or Login)</h1>
+        <form onSubmit={handleAuth}>
+          <div style={{ marginBottom: 10 }}>
+            <label htmlFor="email">Email: </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: 10 }}>
+            <label htmlFor="password">Password: </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
 
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit">Submit</button>
+        </form>
+
+      </div>
     </main>
   )
 }

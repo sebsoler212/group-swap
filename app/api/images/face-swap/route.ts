@@ -171,6 +171,15 @@ export async function POST(req: Request): Promise<NextResponse> {
                 ];
             break;
 
+            case 'france':
+                HARDCODED_IMAGES = [
+                    "https://ucarecdn.com/092c98dd-e15c-4e92-8a3c-58d79ad4e297/ladoizquierdo.jpeg",
+                    "https://ucarecdn.com/9fe290de-ad4f-4ed1-b9ad-e9aecd9b0a67/ladoizquierdocentral.jpeg",
+                    "https://ucarecdn.com/59e30843-06da-44e6-81ae-1545cc4663a8/ladoderechocentral.jpeg",
+                    "https://ucarecdn.com/5acf6372-edd0-47e4-a35b-2df8364c9299/ladoderecho.jpeg"
+                ];
+            break;
+
             /* TEMPLATE
             case '':
                 HARDCODED_IMAGES = [

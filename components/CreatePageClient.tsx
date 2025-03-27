@@ -18,6 +18,7 @@ interface Face {
 }
 
 const HARDCODED_TEMPLATES: { url: string; value: string }[] = [
+    { url: "/france.jpeg", value: "france" },
     { url: "/vikings.jpeg", value: "vikings" },
     { url: "/cowboys.jpeg", value: "cowboys" },
     { url: "/knights.jpeg", value: "knights" },
@@ -28,8 +29,7 @@ const HARDCODED_TEMPLATES: { url: string; value: string }[] = [
     { url: "/mages.jpeg", value: "vikings" },
     { url: "/ninjas.jpeg", value: "vikings" },
     { url: "/spartans.jpeg", value: "vikings" },
-    { url: "/vikings.jpeg", value: "vikings" },
-    { url: "/cowboys.jpeg", value: "cowboys" }
+    { url: "/vikings.jpeg", value: "vikings" }
 ];
 
 const PILL_OPTIONS = ['All', 'Vikings', 'Cowboys', 'Samurai', 'Knights', 'Cool', 'Beans', 'Another One', 'Christmas', 'Easter', 'Family', 'More Option', 'Option 2', 'Halloween', 'Wow Option'];
@@ -205,6 +205,8 @@ export default function CreatePage() {
         try {
             setLoading(true);
             const timestamp = new Date().toISOString();
+
+            await supabase.auth.refreshSession();
 
             const {
                 data: { session },
