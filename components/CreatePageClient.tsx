@@ -238,7 +238,8 @@ export default function CreatePage() {
             </div>
             <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
                 {step === 1 && "Select a Template"}
-                {step === 2 && "Add group photo"}
+                {step === 2 && faces.length === 0 && "Add Group Photo"}
+                {step === 2 && faces.length > 0 && "Set Faces"}
                 {step === 3 && "Done"}
             </header>
 

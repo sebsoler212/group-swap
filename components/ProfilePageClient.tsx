@@ -219,6 +219,12 @@ export default function ProfilePage() {
           </div>
 
           <div className="col-span-1 mt-4 md:mt-0">
+
+            {faces.length === 0 && (
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-center mb-2 md:mt-1">Add group photo</h2>
+              </div>
+            )}
             
             {faces.length > 0 && (
               <div className="mb-4">
