@@ -31,6 +31,8 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchFaces = async () => {
         try {
+            await supabase.auth.refreshSession();
+
             const {
                 data: { session },
             } = await supabase.auth.getSession();
@@ -55,8 +57,9 @@ export default function ProfilePage() {
 
   // Handle logout
   const handleLogout = async () => {
+    await supabase.auth.refreshSession()
     await supabaseClient.auth.signOut()
-    router.push('/')
+    router.push('/login')
   }
 
   const goToCreate = async () => {
@@ -245,13 +248,13 @@ export default function ProfilePage() {
 
           <div className="col-span-1 mt-4 md:mt-0">
 
-            {faces.length === 0 && (
+            {faces && faces.length === 0 && (
               <div className="mb-4">
                 <h2 className="text-xl font-bold text-center mb-2 md:mt-1">Add group photo</h2>
               </div>
             )}
             
-            {faces.length > 0 && (
+            {faces && faces.length > 0 && (
               <div className="mb-4">
                 <h2 className="text-xl font-bold text-center mb-2 md:mt-1">My Faces</h2>
                 <div className="grid grid-cols-4 gap-2 md:gap-4">

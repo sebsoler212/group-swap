@@ -71,6 +71,9 @@ export default function CreatePage() {
     useEffect(() => {
         const fetchFaces = async () => {
             try {
+
+                await supabase.auth.refreshSession();
+
                 const {
                     data: { session },
                 } = await supabase.auth.getSession();
@@ -84,7 +87,7 @@ export default function CreatePage() {
                 });
     
                 const data = await response.json();
-                if(data.cleanFaces.length > 0) {
+                if(data.cleanFaces && data.cleanFaces.length > 0) {
                     setUploadBtn(false);
                 }
 
@@ -141,6 +144,8 @@ export default function CreatePage() {
             setLoading(true);
             const timestamp = new Date().toISOString();
 
+            await supabase.auth.refreshSession();
+            
             const {
                 data: { session },
             } = await supabase.auth.getSession();
@@ -287,8 +292,8 @@ export default function CreatePage() {
             </div>
             <header className="fixed top-0 w-full bg-gray-800 text-white py-4 text-center text-xl font-bold">
                 {step === 1 && "Select a Template"}
-                {step === 2 && faces.length === 0 && "Add Group Photo"}
-                {step === 2 && faces.length > 0 && "Set Faces"}
+                {step === 2 && faces && faces.length === 0 && "Add Group Photo"}
+                {step === 2 && faces && faces.length > 0 && "Set Faces"}
                 {step === 3 && "Done"}
             </header>
 
