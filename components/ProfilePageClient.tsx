@@ -85,8 +85,32 @@ export default function ProfilePage() {
   };
 
   // Remove a face from the list
-  const handleRemoveFace = (faceIndex: number) => {
-      setFaces(prevFaces => prevFaces.filter(face => face.faceIndex !== faceIndex));
+  const handleRemoveFace = async (faceIndex: number) => {
+
+    try {
+          setLoading(true);
+          const timestamp = new Date().toISOString();
+
+          const {
+              data: { session },
+          } = await supabase.auth.getSession();
+
+          const response = await fetch('/api/images/delete-user-face', {
+              method: 'POST',
+              headers: { 
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${session?.access_token}`
+              },
+              body: JSON.stringify({ faceRowId: faceIndex })
+          });
+
+          const data = await response.json();
+          console.log(data);
+      } catch (error) {
+          console.error('Error fetching faces:', error);
+      } finally {
+        setFaces(prevFaces => prevFaces.filter(face => face.faceIndex !== faceIndex));
+      }
   };
 
   return (
