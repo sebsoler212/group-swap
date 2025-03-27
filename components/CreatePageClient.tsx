@@ -358,13 +358,11 @@ export default function CreatePage() {
                                     {faces.map(({ faceIndex, faceUrl }, index) => (
                                         <div key={faceIndex} className="flex flex-col items-center text-center">
 
-                                            {index < faces.length - 1 && (
-                                                <div className="w-full">
-                                                    <button onClick={() => handleRemoveFace(faceIndex)} className="w-full py-1 bg-red-500 text-white text-sm flex items-center justify-center">
-                                                        <FaRegTrashAlt />
-                                                    </button>
-                                                </div>
-                                            )}
+                                            <div className="w-full">
+                                                <button onClick={() => handleRemoveFace(faceIndex)} className="w-full py-1 bg-red-500 text-white text-sm flex items-center justify-center">
+                                                    <FaRegTrashAlt />
+                                                </button>
+                                            </div>
 
                                             <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto" />
 
@@ -375,9 +373,11 @@ export default function CreatePage() {
                                                     </button>
                                                 </div>
                                                 <div className="grid-cols-1">
-                                                     <button onClick={() => handleSwitchPlaces(index, index + 1)} className="w-full py-2 bg-blue-500 text-white text-sm flex items-center justify-center">
-                                                        <MdSwitchLeft />
-                                                    </button>
+                                                    {index < faces.length - 1 && (
+                                                        <button onClick={() => handleSwitchPlaces(index, index + 1)} className="w-full py-2 bg-blue-500 text-white text-sm flex items-center justify-center">
+                                                            <MdSwitchLeft />
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
