@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 
 // Define Face type
 interface Face {
@@ -102,9 +103,18 @@ export default function CreatePage() {
 
         try {
             setLoading(true);
+            const supabase = createPagesBrowserClient();
+
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+
             const response = await fetch('/api/images/detect-faces', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${session?.access_token}`
+                },
                 body: JSON.stringify({ imageUuid: uuid })
             });
 
@@ -281,7 +291,7 @@ export default function CreatePage() {
                                 <div className="grid grid-cols-4">
                                     {faces.map(({ faceIndex, faceUrl }, index) => (
                                         <div key={faceIndex} className="flex flex-col items-center p-2">
-                                            <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto rounded-full" />
+                                            <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto" />
                                             <div className="flex">
                                                 <button onClick={() => handleRemoveFace(faceIndex)} className="mt-2 px-3 py-1 bg-red-500 text-white text-sm">x</button>
                                                 {index < faces.length - 1 && (
