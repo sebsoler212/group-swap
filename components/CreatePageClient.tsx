@@ -156,6 +156,7 @@ export default function CreatePage() {
                 // setFaces(data.faces);
                 setStep(2); // Move to next step after detection
                 setLoading(false);
+                setUploadBtn(false);
             }
         } catch (error) {
             console.error('Error fetching faces:', error);
