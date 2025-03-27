@@ -3,7 +3,9 @@
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from "next/navigation"
 
-import { useState } from "react"
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
+
+import { useEffect, useState } from "react"
 import ImageWithLoader from "./ImageWithLoader"
 
 import Image from 'next/image'
@@ -11,10 +13,44 @@ import { BiPurchaseTag } from "react-icons/bi"
 import { FaEye } from "react-icons/fa"
 import { IoMdDownload } from "react-icons/io"
 
+// Define Face type
+interface Face {
+  faceIndex: number;
+  faceUrl: string;
+}
+
 export default function ProfilePage() {
   const user = useUser()
   const supabaseClient = useSupabaseClient()
   const router = useRouter()
+  const supabase = createPagesBrowserClient()
+
+  const [faces, setFaces] = useState<Face[]>([])
+
+  useEffect(() => {
+    const fetchFaces = async () => {
+        try {
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+
+            const response = await fetch('/api/images/get-user-faces', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${session?.access_token}`
+                }
+            });
+
+            const data = await response.json();
+            setFaces(data.cleanFaces);
+        } catch (err) {
+            console.error("Error fetching faces:", err);
+        }
+    };
+
+    fetchFaces();
+  }, []);
 
   // Handle logout
   const handleLogout = async () => {
@@ -46,6 +82,11 @@ export default function ProfilePage() {
     //TODO: REMOVE HARD CODED IMAGE.. JUST USE URL
     setImageSrc("/4update.webp");
     setLoading(false);
+  };
+
+  // Remove a face from the list
+  const handleRemoveFace = (faceIndex: number) => {
+      setFaces(prevFaces => prevFaces.filter(face => face.faceIndex !== faceIndex));
   };
 
   return (
@@ -178,25 +219,22 @@ export default function ProfilePage() {
           </div>
 
           <div className="col-span-1 mt-4 md:mt-0">
-
-            <h2 className="text-xl font-bold text-center mb-2 md:mt-1">Detected Faces</h2>
-            <div className="grid grid-cols-4 gap-4 mb-4">
-              <div className="col-span-1">
-                <Image src="/person1.png" alt="Person 1" width={100} height={100} className="w-auto h-auto rounded-full" />
+            
+            {faces.length > 0 && (
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-center mb-2 md:mt-1">My Faces</h2>
+                <div className="grid grid-cols-4 gap-2 md:gap-4">
+                  {faces.map(({ faceIndex, faceUrl }, index) => (
+                      <div key={faceIndex} className="flex flex-col items-center">
+                          <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto" />
+                          <div className="flex">
+                              <button onClick={() => handleRemoveFace(faceIndex)} className="mt-2 px-3 py-1 bg-red-500 text-white text-sm">x</button>
+                          </div>
+                      </div>
+                  ))}
+                </div>
               </div>
-              <div className="col-span-1">
-                <Image src="/person2.png" alt="Person 2" width={100} height={100} className="w-auto h-auto rounded-full" />
-              </div>
-              <div className="col-span-1">
-                <Image src="/person3.png" alt="Person 3" width={100} height={100} className="w-auto h-auto rounded-full" />
-              </div>
-              <div className="col-span-1">
-                <Image src="/person1.png" alt="Person 4" width={100} height={100} className="w-auto h-auto rounded-full" />
-              </div>
-              <div className="col-span-1">
-                <Image src="/person1.png" alt="Person 4" width={100} height={100} className="w-auto h-auto rounded-full" />
-              </div>
-            </div>
+            )}
 
             <h2 className="text-xl font-bold text-center mb-2 pt-4 border-t-4">Account Information</h2>
             <p className="text-center mt-1">Your email: {user?.email}</p>
