@@ -56,6 +56,14 @@ export default function CreatePage() {
         };
     }, []);
 
+    const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+    const [faces, setFaces] = useState<Face[]>([]);
+    const [compositeImageUrl, setCompositeImageUrl] = useState<string | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const [isSwapping, setIsSwapping] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [uploadBtn, setUploadBtn] = useState(true);
+
     useEffect(() => {
         const fetchFaces = async () => {
             try {
@@ -72,6 +80,10 @@ export default function CreatePage() {
                 });
     
                 const data = await response.json();
+                if(data.cleanFaces.length > 0) {
+                    setUploadBtn(false);
+                }
+
                 setFaces(data.cleanFaces);
             } catch (err) {
                 console.error("Error fetching faces:", err);
@@ -80,13 +92,6 @@ export default function CreatePage() {
 
         fetchFaces();
      }, []);
-
-    const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-    const [faces, setFaces] = useState<Face[]>([]);
-    const [compositeImageUrl, setCompositeImageUrl] = useState<string | null>(null);
-    const [isUploading, setIsUploading] = useState(false);
-    const [isSwapping, setIsSwapping] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -147,7 +152,8 @@ export default function CreatePage() {
 
             const data = await response.json();
             if (data.faces) {
-                setFaces(data.faces);
+                setFaces(prevFaces => [...prevFaces, ...data.faces]);
+                // setFaces(data.faces);
                 setStep(2); // Move to next step after detection
                 setLoading(false);
             }
@@ -203,9 +209,18 @@ export default function CreatePage() {
         router.push('/create'); // no query param
         setStep(1);
         setSelectedTemplate(null);
-        setFaces([]);
         setCompositeImageUrl(null);
         setSelectedPill('All');
+        setUploadBtn(false);
+    };
+
+    const handleClearFaces = () => {
+        setFaces([]);
+        setUploadBtn(true);
+    };
+
+    const handleAddNewFaces = () => {
+        setUploadBtn(true);
     };
 
     const handleChangeTemplate = () => {
@@ -222,7 +237,9 @@ export default function CreatePage() {
 
             {/* Fixed Header */}
             <div
-                className="fixed top-2 left-4 cursor-pointer z-10">
+                className="fixed top-2 left-4 cursor-pointer z-10"
+                onClick={handleReset}
+            >
                 <Image 
                     src="/glogo.png"
                     alt="Group Swap"
@@ -304,22 +321,28 @@ export default function CreatePage() {
                 {step === 2 && (
                     <div className="flex flex-col items-center h-full overflow-y-auto px-4">
 
-                        <p className="mt-4 mb-4 text-center text-sm">We automatically handle the face detections and let you pick the order the faces get swapped in, Left to Right.</p>
-
-                        <div className="w-full flex justify-center mb-4">
-                            <div className="w-auto max-w-sm">
-                                <FileUploaderRegular 
-                                    pubkey="44255e8ed4e36d259969"
-                                    data-images-only
-                                    multiple={false}
-                                    onFileUploadSuccess={handleFileUpload}
-                                    className="fileUploaderWrapper"
-                                />
+                        {(faces.length === 0 || uploadBtn) && (
+                            <div>
+                                <div className="w-full flex justify-center mb-4 mt-2">
+                                    <div className="w-auto max-w-sm">
+                                        <FileUploaderRegular 
+                                            pubkey="44255e8ed4e36d259969"
+                                            data-images-only
+                                            multiple={false}
+                                            onFileUploadSuccess={handleFileUpload}
+                                            className="fileUploaderWrapper"
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         {faces.length > 0 && (
                             <div className="mt-2">
+                                <div className="flex gap-4 justify-center mb-2">
+                                    <button onClick={() => handleAddNewFaces()} className="px-4 py-2 bg-blue-500 text-white text-xs rounded mt-1 mb-1">Add New Faces</button>
+                                    <button onClick={() => handleClearFaces()} className="px-4 py-2 bg-red-500 text-white text-xs rounded mt-1 mb-1">Clear All Faces</button>
+                                </div>
                                 <div className="grid grid-cols-4 gap-2 md:gap-4">
                                     {faces.map(({ faceIndex, faceUrl }, index) => (
                                         <div key={faceIndex} className="flex flex-col items-center">
