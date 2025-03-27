@@ -183,6 +183,11 @@ export default function CreatePage() {
         setSelectedPill('All');
     };
 
+    const handleChangeTemplate = () => {
+        router.push('/create'); // no query param
+        setStep(1);
+    };
+
     const goToProfile = async () => {
         router.push('/profile')
     }
@@ -315,7 +320,13 @@ export default function CreatePage() {
                                     height={200} 
                                     className="w-auto h-auto border rounded mb-1" 
                                 />
-                                <button onClick={() => setStep(1)} className="px-4 py-2 bg-blue-500 text-white text-xs rounded mt-1 mb-1">🔁 Change Template</button>
+                                <button onClick={() => handleChangeTemplate()} className="px-4 py-2 bg-blue-500 text-white text-xs rounded mt-1 mb-1">🔁 Change Template</button>
+                            </div>
+                        )}
+
+                        {!selectedTemplate && (
+                            <div className="mt-2 grid grid-cols-1 justify-items-center">
+                                <button onClick={() => handleChangeTemplate()} className="px-4 py-2 bg-blue-500 text-white text-xs rounded mt-1 mb-1">*️⃣ Select Template</button>
                             </div>
                         )}
 
