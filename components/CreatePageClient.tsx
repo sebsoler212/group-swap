@@ -6,6 +6,10 @@ import Image from 'next/image';
 import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+import { FaRegTrashAlt } from "react-icons/fa";
+import { BiSolidHide } from "react-icons/bi";
+import { MdSwitchLeft } from "react-icons/md";
+import { IoAdd } from "react-icons/io5";
 
 // Define Face type
 interface Face {
@@ -324,7 +328,7 @@ export default function CreatePage() {
 
                         {(faces.length === 0 || uploadBtn) && (
                             <div>
-                                <div className="w-full flex justify-center mb-4 mt-2">
+                                <div className="w-full flex justify-center mb-2 mt-2">
                                     <div className="w-auto max-w-sm">
                                         <FileUploaderRegular 
                                             pubkey="44255e8ed4e36d259969"
@@ -340,19 +344,41 @@ export default function CreatePage() {
 
                         {faces.length > 0 && (
                             <div className="mt-2">
-                                <div className="flex gap-4 justify-center mb-2">
-                                    <button onClick={() => handleAddNewFaces()} className="px-4 py-2 bg-blue-500 text-white text-xs rounded mt-1 mb-1">Add New Faces</button>
-                                    <button onClick={() => handleClearFaces()} className="px-4 py-2 bg-red-500 text-white text-xs rounded mt-1 mb-1">Clear All Faces</button>
+                                <div className="flex gap-4 justify-center mb-3">
+                                    <button onClick={() => handleAddNewFaces()} className="px-4 py-2 bg-blue-500 text-white text-xs rounded mt-1 mb-1 flex">
+                                        <IoAdd className="h-full"/>
+                                        <span className="ml-1">Add New Faces</span>
+                                    </button>
+                                    <button onClick={() => handleClearFaces()} className="px-4 py-2 bg-yellow-500 text-white text-xs rounded mt-1 mb-1 flex">
+                                        <BiSolidHide className="h-full"/>
+                                        <span className="ml-1">Hide All Faces</span>
+                                    </button>
                                 </div>
                                 <div className="grid grid-cols-4 gap-2 md:gap-4">
                                     {faces.map(({ faceIndex, faceUrl }, index) => (
-                                        <div key={faceIndex} className="flex flex-col items-center">
+                                        <div key={faceIndex} className="flex flex-col items-center text-center">
+
+                                            {index < faces.length - 1 && (
+                                                <div className="w-full">
+                                                    <button onClick={() => handleRemoveFace(faceIndex)} className="w-full py-1 bg-red-500 text-white text-sm flex items-center justify-center">
+                                                        <FaRegTrashAlt />
+                                                    </button>
+                                                </div>
+                                            )}
+
                                             <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto" />
-                                            <div className="flex">
-                                                <button onClick={() => handleRemoveFace(faceIndex)} className="mt-2 px-3 py-1 bg-red-500 text-white text-sm">x</button>
-                                                {index < faces.length - 1 && (
-                                                    <button onClick={() => handleSwitchPlaces(index, index + 1)} className="mt-2 px-3 py-1 bg-yellow-500 text-white text-sm">↔</button>
-                                                )}
+
+                                            <div className="grid grid-cols-2 w-full">
+                                                <div className="grid-cols-1">
+                                                    <button onClick={() => handleRemoveFace(faceIndex)} className="w-full py-2 bg-yellow-500 text-white text-sm flex items-center justify-center">
+                                                        <BiSolidHide />
+                                                    </button>
+                                                </div>
+                                                <div className="grid-cols-1">
+                                                     <button onClick={() => handleSwitchPlaces(index, index + 1)} className="w-full py-2 bg-blue-500 text-white text-sm flex items-center justify-center">
+                                                        <MdSwitchLeft />
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}

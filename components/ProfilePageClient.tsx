@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { BiPurchaseTag } from "react-icons/bi"
 import { FaEye } from "react-icons/fa"
 import { IoMdDownload } from "react-icons/io"
+import { FaRegTrashAlt } from "react-icons/fa"
 
 // Define Face type
 interface Face {
@@ -258,7 +259,9 @@ export default function ProfilePage() {
                       <div key={faceIndex} className="flex flex-col items-center">
                           <Image src={faceUrl} alt={`Face ${faceIndex}`} width={100} height={100} className="w-auto h-auto" />
                           <div className="flex">
-                              <button onClick={() => handleRemoveFace(faceIndex)} className="mt-2 px-3 py-1 bg-red-500 text-white text-sm">x</button>
+                              <button onClick={() => handleRemoveFace(faceIndex)} className="mt-2 px-1 md:px-2 py-1 bg-red-500 text-white text-xs flex">
+                                <FaRegTrashAlt className="h-full"/> <span className="ml-1">Delete</span>
+                              </button>
                           </div>
                       </div>
                   ))}
