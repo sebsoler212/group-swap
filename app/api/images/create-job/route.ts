@@ -56,27 +56,24 @@ export async function POST(request: Request): Promise<NextResponse> {
         } else {
             const insertedId = data?.[0]?.id;
             console.log('Inserted job ID:', insertedId);
+
+            const faceJobRows = faces.map(face => ({
+                id: uuidv4(),
+                face_id: face.faceIndex,
+                job_id: insertedId
+            }));
+            
+            const { error: facesJobsError } = await supabase
+                .from('facesjob')
+                .insert(faceJobRows);
+            
+            if (facesJobsError) {
+                console.error('Error inserting into facesjob table:', error);
+                return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+            }
+
+            return NextResponse.json({ success: true }, { status: 200 });
         }
-
-        
-        
-
-        //TODO:
-        // Create Job
-        // For each face in faces, create facesjob row
-        
-        /*
-        const { error: updateError } = await supabase
-            .from("faces")
-            .update({ display: false })
-            .match({ id: faceRowId, user_id: userId });
-
-        if (updateError) {
-            return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-        }
-        */
-
-        return NextResponse.json({ success: true }, { status: 200 });
 
     } catch (error) {
         console.error('Error in detect-faces POST route:', error);
