@@ -142,6 +142,7 @@ export default function CreatePage() {
 
         try {
             setLoading(true);
+            setUploadBtn(false);
             const timestamp = new Date().toISOString();
 
             await supabase.auth.refreshSession();
