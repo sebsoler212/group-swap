@@ -179,7 +179,41 @@ export default function CreatePage() {
     const handleFaceSwap = async () => {
         if (faces.length === 0 || !selectedTemplate) return;
 
+        try {
+            setLoading(true);
+
+            await supabase.auth.refreshSession();
+            
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+
+            const response = await fetch('/api/images/create-job', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${session?.access_token}`
+                },
+                body: JSON.stringify(
+                    { 
+                        faceObjs: faces,
+                        templateId: '0887f11d-ef32-4e58-b557-2e9fed260333',
+                        type: 'single'
+                    }
+                )
+            });
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching faces:', error);
+        } finally {
+            setLoading(false);
+        }
+
+        /*
         setIsSwapping(true);
+
         try {
             setLoading(true);
             const response = await fetch('/api/images/face-swap', {
@@ -199,6 +233,7 @@ export default function CreatePage() {
         } finally {
             setIsSwapping(false);
         }
+        */
     };
 
     // Remove a face from the list
