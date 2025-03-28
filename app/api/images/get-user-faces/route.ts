@@ -37,19 +37,20 @@ export async function POST(request: Request): Promise<NextResponse> {
         const { data: faces, error } = await supabase
             .from("faces")
             .select("*")
-            .eq("user_id", userId);
+            .eq("user_id", userId)
+            .eq("display", true);
 
         if (error) {
             return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
         }
 
-        const cleanFaces = faces.map(({ id, user_id, imgurl, created_at, group }) => ({
+        const cleanFaces = faces.map(({ id, user_id, imgurl, created_at, group, display }) => ({
             faceIndex: id,
             faceUrl: imgurl,
             user_id,
             created_at,
-            group
-            
+            group,
+            display
         }));
 
         return NextResponse.json({ cleanFaces });

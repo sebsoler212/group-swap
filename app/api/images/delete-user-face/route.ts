@@ -40,12 +40,12 @@ export async function POST(request: Request): Promise<NextResponse> {
 
         const userId = user.id;
     
-        const { error: deleteError } = await supabase
+        const { error: updateError } = await supabase
             .from("faces")
-            .delete()
+            .update({ display: false })
             .match({ id: faceRowId, user_id: userId });
 
-        if (deleteError) {
+        if (updateError) {
             return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
         }
 
