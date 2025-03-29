@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from "next/navigation"
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { FaGoogle } from 'react-icons/fa'
 
 export default function LoginPageClient() {
   const router = useRouter()
@@ -23,8 +24,7 @@ export default function LoginPageClient() {
   }, [searchParams.get("email")])
 
   // 2) Handle sign up / sign in logic
-  const handleAuth = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleAuth = async () => {
     setErrorMsg('')
 
     // Attempt to sign up first
@@ -80,37 +80,65 @@ export default function LoginPageClient() {
     router.push('/create')
   }
 
-  return (
-    <main className="flex items-center justify-center mt-24">
-      <div className="grid grid-cols-1">
-        <h1>Dynamic Auth (Sign Up or Login)</h1>
-        <form onSubmit={handleAuth}>
-          <div style={{ marginBottom: 10 }}>
-            <label htmlFor="email">Email: </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: 10 }}>
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+  const signInWithGoogle = async () => {
+    // Attempt sign-in with Google
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'https://next-activitybox.ngrok.dev',
+      },
+    })
 
-          <button type="submit">Submit</button>
-        </form>
+    if (error) {
+      console.error('Google sign-in error:', error)
+    } else {
+      console.log('Google sign-in started:', data)
+    }
+  }
+
+  return (
+    <main className="flex items-center justify-center mt-24 w-full">
+      <div className="grid grid-cols-1 max-w-md w-full mx-12">
+        <div className="mb-1">
+          <label htmlFor="email" className="block w-full">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-white text-black w-full"
+          />
+        </div>
+        <div className="mb-2">
+          <label htmlFor="password" className="block">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-white text-black w-full"
+          />
+        </div>
+        {errorMsg && <p className="text-red-500 mb-2">{errorMsg}</p>}
+
+        <button
+          onClick={handleAuth}
+          className="px-6 md:px-8 py-2 border border-gray-300 rounded-lg bg-white text-black hover:bg-slate-100 whitespace-nowrap w-full">
+            Create Photos
+        </button>
+
+        <hr className="mt-4 mx-12" />
+
+        <button
+          onClick={signInWithGoogle}
+          className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-primary hover:bg-primary-dark text-white mt-4"
+        >
+          <FaGoogle /> Continue with Google
+        </button>
 
       </div>
     </main>
