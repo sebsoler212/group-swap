@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { FaGoogle } from 'react-icons/fa'
 
+import Image from 'next/image'
+
 export default function LoginPageClient() {
   const router = useRouter()
   const supabaseClient = useSupabaseClient()
@@ -98,7 +100,25 @@ export default function LoginPageClient() {
 
   return (
     <main className="flex items-center justify-center mt-24 w-full">
-      <div className="grid grid-cols-1 max-w-md w-full mx-12">
+      <div className="grid grid-cols-1 max-w-md w-full mx-8">
+
+        <div className="cursor-pointer flex mb-2 flex items-center justify-center">
+          <Image 
+          src="/glogo.png"
+          alt="Group Swap"
+          className="text-center cursor-pointer"
+          width={60}
+          height={50}
+          />
+          <span className="ml-1 text-xl font-bold">Group Swap</span>
+        </div>
+
+        <p className="text-lg text-slate-600 flex items-center justify-center text-center mx-4">
+          Limitless group photos of your family and friends.
+        </p>
+
+        <hr className="mt-4 mb-4 mx-12" />
+
         <div className="mb-1">
           <label htmlFor="email" className="block w-full">Email</label>
           <input
