@@ -45,10 +45,10 @@ export default function ImageTextHeroSection({ imgUrl }: HeroSectionProps) {
                     {rotatingWords[wordIndex]}
                 </motion.span>
                 </AnimatePresence>
-                <span>group photos from one picture</span>
+                <div className="block w-full">Group Photos</div>
             </h1>
             <p className="mt-4 text-lg text-slate-600">
-                Upload a single picture of your family or friends and swap them into thousands of templates. Studio quality in one click.
+                Upload a picture of your family or friends and swap them into thousands of templates. Studio quality in one click.
             </p>
         </div>
 

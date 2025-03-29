@@ -82,6 +82,10 @@ export default function LoginPageClient() {
     router.push('/create')
   }
 
+  const goHome = () => {
+    router.push('/')
+  }
+
   const signInWithGoogle = async () => {
     // Attempt sign-in with Google
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
@@ -102,7 +106,7 @@ export default function LoginPageClient() {
     <main className="flex items-center justify-center mt-24 w-full">
       <div className="grid grid-cols-1 max-w-md w-full mx-8">
 
-        <div className="cursor-pointer flex mb-2 flex items-center justify-center">
+        <div className="cursor-pointer flex mb-2 flex items-center justify-center" onClick={goHome}>
           <Image 
           src="/glogo.png"
           alt="Group Swap"

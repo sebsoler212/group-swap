@@ -164,7 +164,7 @@ export default function PackPage() {
                 {rotatingWords[wordIndex]}
               </motion.span>
             </AnimatePresence>
-            <span>group photos from one picture</span>
+            <div className="block w-full">Group Photos</div>
           </h1>
           <p className="mt-4 text-lg text-slate-600">
             {pack?.description}
@@ -274,8 +274,8 @@ export default function PackPage() {
       </div>
 
       <div className="text-center max-w-5xl">
-        <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mt-8">
-            Upload a <span className="text-primary">single group photo</span> and swap into every template in the <span className="text-primary">{pack?.name}</span> pack.
+        <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mt-8 md:mx-12">
+            Upload a <span className="text-primary">group photo</span> and swap into every template in the <span className="text-primary">{pack?.name}</span> pack.
         </h2>
       </div>
 

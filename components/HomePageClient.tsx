@@ -101,10 +101,10 @@ export default function HomePageClient() {
                 {rotatingWords[wordIndex]}
               </motion.span>
             </AnimatePresence>
-            <span>group photos from one picture</span>
+            <div className="block w-full">Group Photos</div>
           </h1>
           <p className="mt-4 text-lg text-slate-600">
-            Upload a single picture of your family or friends and swap them into
+            Upload a picture of your family or friends and swap them into
             thousands of templates. Studio quality in one click.
           </p>
         </div>
@@ -222,7 +222,7 @@ export default function HomePageClient() {
 
       <div className="text-center max-w-5xl">
         <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mt-8">
-          Upload a <span className="text-primary">single group photo</span> and pick templates.
+          Upload a <span className="text-primary">group photo</span> and pick templates.
         </h2>
       </div>
 
